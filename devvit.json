@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "http": {
+      "enable": true,
+      "domains": ["linkbreakers.com"]
+    }
+  }
+}
