@@ -1,0 +1,18 @@
+{
+  "name": "linkbreakers-reddit-bot",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "devvit playtest",
+    "upload": "devvit upload",
+    "publish": "devvit publish"
+  },
+  "dependencies": {
+    "@devvit/public-api": "latest"
+  },
+  "devDependencies": {
+    "devvit": "latest",
+    "typescript": "^5.0.0"
+  }
+}
