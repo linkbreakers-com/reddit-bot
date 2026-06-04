@@ -109,6 +109,43 @@ Devvit.addTrigger({
   },
 });
 
+// Manual trigger via subreddit menu (3-dot menu > "Post latest article")
+Devvit.addMenuItem({
+  label: "Post latest blog article",
+  location: "subreddit",
+  onPress: async (_event, context) => {
+    const response = await fetch("https://linkbreakers.com/api/latest-article");
+
+    if (!response.ok) {
+      context.ui.showToast("Failed to fetch latest article");
+      return;
+    }
+
+    const article: LatestArticle = await response.json();
+
+    const alreadyPosted = await context.redis.get(`posted:${article.slug}`);
+    if (alreadyPosted) {
+      context.ui.showToast(`Already posted: ${article.slug}`);
+      return;
+    }
+
+    const subreddit = await context.reddit.getCurrentSubreddit();
+    const { title, body } = buildRedditPost(article);
+
+    await context.reddit.submitPost({
+      subredditName: subreddit.name,
+      title,
+      text: body,
+    });
+
+    await context.redis.set(`posted:${article.slug}`, "1", {
+      expiration: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
+    });
+
+    context.ui.showToast(`Posted: ${article.title}`);
+  },
+});
+
 // Clean up the job when the app is removed
 Devvit.addTrigger({
   event: "AppUpgrade",
