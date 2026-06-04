@@ -1,6 +1,6 @@
 {
-  "name": "linkbreakers-reddit-bot",
-  "version": "0.0.1",
+  "name": "lb-blog-poster",
+  "version": "0.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,10 +9,11 @@
     "publish": "devvit publish"
   },
   "dependencies": {
-    "@devvit/public-api": "latest"
+    "@devvit/public-api": "0.13.2"
   },
   "devDependencies": {
-    "devvit": "latest",
+    "devvit": "0.13.2",
     "typescript": "^5.0.0"
-  }
+  },
+  "license": "BSD-3-Clause"
 }
